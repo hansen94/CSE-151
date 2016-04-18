@@ -6,10 +6,13 @@ import org.apache.commons.math.stat.descriptive.moment.StandardDeviation;
 public class RandomNumberGenerator {
 	private static Random rand = new Random(31245750);
 	private static double [] data;
-	private static boolean toggle = false;
 	
 	RandomNumberGenerator(int size){
 		data = new double [size];
+	}
+	
+	public double [] getData(){
+		return data;
 	}
 	
 	public void algorithm(float nn, float nr) {
