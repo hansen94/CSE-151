@@ -9,11 +9,14 @@ public class CsvReader {
 	
 	public static List read(String address){
 		try{
-		CSVReader reader = new CSVReader(new FileReader(address)) ;
+		CSVReader reader = new CSVReader(new FileReader(address), ',') ;
 		
 		List list = reader.readAll();
 		
 		reader.close();
+		/*for(int i = 0; i < list.size(); i++){
+			System.out.println(Arrays.toString(list.toArray()));
+		}*/
 		
 		return list;
 		
