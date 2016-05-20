@@ -10,15 +10,15 @@ import org.apache.commons.math.stat.descriptive.moment.StandardDeviation;
  */
 
 public class UtilFunctions {
-	public static double [] [] listToMatrix(List<String[]> list){
-		String[] temp = (String[])list.get(0);  //temp variable just to get number of columns needed
-		double [] [] matrix = new double [list.size()] [temp.length];  //matrix[which line] [which column]
+	public static float [] [] listToMatrix(List<List<Float>> list){
+		List <Float> temp = list.get(0);  //temp variable just to get number of columns needed
+		float [] [] matrix = new float [list.size()] [temp.size()];  //matrix[which line] [which column]
 		
 		//iterate through the list
 		for(int i = 0; i < list.size(); i++ ){
-			String[] currentData = (String[])list.get(i);   //grab data from list
-			for(int j = 0; j < currentData.length; j++)
-				matrix [i] [j] = Double.parseDouble(currentData [j]);  //put data in matrix, converted to double
+			List<Float> currentData = list.get(i);   //grab data from list
+			for(int j = 0; j < currentData.size(); j++)
+				matrix [i] [j] = (currentData.get(j));  //put data in matrix, converted to double
 		}
 		
 		return matrix;
@@ -53,12 +53,16 @@ public class UtilFunctions {
 		Mean mean = new Mean();
 		StandardDeviation sd = new StandardDeviation();
 		//find the mean and standard deviation of the column
-		double meanColumn = mean.evaluate(column);
-		double sdColumn = sd.evaluate(column);
+		double[] columnDouble = new double[column.length];
+		for(int j = 0; j < column.length; j++)
+			columnDouble[j] = (double) column[j];
+		
+		double meanColumn = mean.evaluate(columnDouble);
+		double sdColumn = sd.evaluate(columnDouble);
 		
 		//normalize every element of the column
 		for(int i = 0; i< column.length; i++){
-			normalizedColumn[i] = (column[i] - meanColumn) / sdColumn;
+			normalizedColumn[i] = (columnDouble[i] - meanColumn) / sdColumn;
 		}
 		
 		return normalizedColumn;
@@ -83,7 +87,7 @@ public class UtilFunctions {
 		StandardDeviation sd = new StandardDeviation();
 		
 		for(int i = 0 ; i < matrix[0].length - 1; i++){
-			double[] column = getColumn(matrix, i);
+			double[] column = getColumn(matrix, i);			
 			standev[i] = sd.evaluate(column);
 		}
 				
