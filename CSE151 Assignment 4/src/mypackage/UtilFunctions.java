@@ -33,6 +33,12 @@ public class UtilFunctions {
 			double [] column = getColumn(matrix, j);
 			//get the zscale of that column
 			double [] normalizedColumn = zScale(column); 
+			
+			/*for(int k = 0; k < normalizedColumn.length; k++){
+				System.out.print(normalizedColumn[k] + " ");
+			}
+			System.out.println("");*/
+			
 			for(int i = 0; i < matrix.length; i++){
 				normalizedMatrix[i][j] = normalizedColumn[i];
 			}

@@ -1,6 +1,7 @@
 package mypackage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PA4Main {
@@ -9,7 +10,7 @@ public class PA4Main {
 		// TODO Auto-generated method stub
 		//get the data from the file 
 		
-		final int K = 1;
+		final int K = 4;
 		System.out.println("Reading raw data...");
 		List <List<Float>> data = CsvReader.read("src/mypackage/abalone.data.csv");
 		
@@ -34,6 +35,12 @@ public class PA4Main {
 		}
 		
 		System.out.println("Finished choosing training...");
+//		System.out.println("The traning set is:");
+//		
+//		for(int i = 0 ; i < training.size(); i++){
+//			System.out.println(training.get(i).toString() + "\n");
+//			
+//		}
 			
 		float[][] trainingMatrix = UtilFunctions.listToMatrix(training);
 		float[][] testMatrix = UtilFunctions.listToMatrix(test);
@@ -53,15 +60,48 @@ public class PA4Main {
 		for(int i = 0; i < trainingMatrix.length; i++){
 			trainingMatrix[i] = doubleToFloat(normalMatrix[i]);
 		}	
-		List<Float> temp = new ArrayList();
+		
+//		System.out.println("\n TraningMatrix:");
+//		for(int i = 0; i < trainingMatrix.length; i++){
+//			for(int j = 0; j< trainingMatrix[i].length; j++){
+//				System.out.print(trainingMatrix[i][j] + " ");				
+//			}
+//			System.out.println("\n");
+//		}
+		
+		
 		training.clear();
 		for(int i = 0; i < trainingMatrix.length; i++){
-			temp.clear();
-			for(int j = 0; j < trainingMatrix[0].length; j++){
+			List<Float> temp = new ArrayList();
+			for(int j = 0; j < trainingMatrix[i].length; j++){
 				temp.add(trainingMatrix[i][j]);
 			}
+//			System.out.println(temp);
 			training.add(temp);
+//			for(int j = 0; j < training.size(); j++){
+//				System.out.println(training.get(j).toString());
+//			}
 		}
+//		List <float[]> list = new ArrayList();
+//		
+//		for(float[] array: trainingMatrix){
+//			list.addAll(Arrays.asList(array));
+//		}
+//		
+//		for(int i = 0; i < list.size(); i++){
+//			float[] aaa = list.get(i);
+//			for(int j = 0; j < aaa.length; j++){
+//				System.out.print(aaa[j]);
+//				
+//			}
+//			System.out.println("");
+//		}
+		
+//		System.out.println("Training List: ");
+//		for(int i = 0; i < training.size(); i++){
+//			System.out.println(training.get(i).toString());
+//		}
+		
 		
 		System.out.println("Done z-scaling...");
 		
@@ -78,7 +118,7 @@ public class PA4Main {
 			System.out.println(clusters.get(i).getCoordinate().toString());
 		}
 				
-				
+		
 				
 
 	}

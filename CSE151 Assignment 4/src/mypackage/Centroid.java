@@ -10,14 +10,22 @@ public class Centroid {
 	private List <Float> coordinate; 
 	private int ID;
 	
-	public Centroid(int d, int dimension){
+	public Centroid(int d, Point p){
 		this.pointsMember = new ArrayList();
 		
 		this.coordinate = new ArrayList();
-		for(int i = 0; i < dimension; i++)
-			this.coordinate.add((float)Math.random());		
+//		for(int i = 0; i < dimension; i++)
+//			this.coordinate.add((float)Math.random());
+		
+		this.coordinate = p.getCoordinate();
 		
 		this.ID = d;		
+	}
+	
+	public Centroid (Centroid c){
+		this.pointsMember = c.getPointsMember();
+		this.coordinate = c.getCoordinate();
+		this.ID = c.getID();
 	}
 
 	public List getPointsMember() {
@@ -49,8 +57,6 @@ public class Centroid {
 	}
 	
 	public boolean compareCentroid(Centroid c){
-		return this.coordinate == c.getCoordinate();
+		return this.coordinate.equals(c.getCoordinate()) ;
 	}
-	
-
 }
