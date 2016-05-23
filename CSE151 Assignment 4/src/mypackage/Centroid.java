@@ -27,6 +27,10 @@ public class Centroid {
 		this.coordinate = c.getCoordinate();
 		this.ID = c.getID();
 	}
+	
+	public int getMemberSize(){
+		return this.pointsMember.size();
+	}
 
 	public List getPointsMember() {
 		return pointsMember;

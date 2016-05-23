@@ -3,6 +3,9 @@ package mypackage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.apache.commons.math3.linear.QRDecomposition;
+import org.ejml.simple.SimpleMatrix;
+import org.python.modules.math;
 
 public class PA4Main {
 
@@ -35,12 +38,6 @@ public class PA4Main {
 		}
 		
 		System.out.println("Finished choosing training...");
-//		System.out.println("The traning set is:");
-//		
-//		for(int i = 0 ; i < training.size(); i++){
-//			System.out.println(training.get(i).toString() + "\n");
-//			
-//		}
 			
 		float[][] trainingMatrix = UtilFunctions.listToMatrix(training);
 		float[][] testMatrix = UtilFunctions.listToMatrix(test);
@@ -61,47 +58,14 @@ public class PA4Main {
 			trainingMatrix[i] = doubleToFloat(normalMatrix[i]);
 		}	
 		
-//		System.out.println("\n TraningMatrix:");
-//		for(int i = 0; i < trainingMatrix.length; i++){
-//			for(int j = 0; j< trainingMatrix[i].length; j++){
-//				System.out.print(trainingMatrix[i][j] + " ");				
-//			}
-//			System.out.println("\n");
-//		}
-		
-		
 		training.clear();
 		for(int i = 0; i < trainingMatrix.length; i++){
 			List<Float> temp = new ArrayList();
 			for(int j = 0; j < trainingMatrix[i].length; j++){
 				temp.add(trainingMatrix[i][j]);
 			}
-//			System.out.println(temp);
 			training.add(temp);
-//			for(int j = 0; j < training.size(); j++){
-//				System.out.println(training.get(j).toString());
-//			}
 		}
-//		List <float[]> list = new ArrayList();
-//		
-//		for(float[] array: trainingMatrix){
-//			list.addAll(Arrays.asList(array));
-//		}
-//		
-//		for(int i = 0; i < list.size(); i++){
-//			float[] aaa = list.get(i);
-//			for(int j = 0; j < aaa.length; j++){
-//				System.out.print(aaa[j]);
-//				
-//			}
-//			System.out.println("");
-//		}
-		
-//		System.out.println("Training List: ");
-//		for(int i = 0; i < training.size(); i++){
-//			System.out.println(training.get(i).toString());
-//		}
-		
 		
 		System.out.println("Done z-scaling...");
 		
@@ -119,8 +83,7 @@ public class PA4Main {
 		for(int i = 0; i < clusters.size(); i++){
 			System.out.println("Centoid ID: " + clusters.get(i).getID());
 			System.out.println(clusters.get(i).getCoordinate().toString());
-		}
-		
+		}	
 		
 		//calculate the mean and standard deviation of each cluster
 		for(int i = 0; i < clusters.size(); i++){
@@ -142,9 +105,61 @@ public class PA4Main {
 			System.out.println("");
 		}
 		
+		System.out.println("\nThe WCSS of this run is: " + kmeans.calculateWCSS());	
+		
+		
+		// run linear regression K times
+		
+		double sum = 0;
+		
+		for (int i = 0; i < K; i++){
+			// Y = age of abalone = clusters.get(i).getMemberSize() x 1 matrix (last column of data)
+			// X = clusters.get(i).getPointsMember()
+			// solves for beta for each cluster
+			// getCoordinate() returns List <Float>
+			
+			// X_Train
+			Point tempPoint = (Point) clusters.get(i).getPointsMember().get(0);
+			float[][] xFloat = new float [clusters.get(i).getMemberSize()] [tempPoint.getCoordinate().size()];
+			double[][] xDouble = new double [clusters.get(i).getMemberSize()] [tempPoint.getCoordinate().size()];
+			
+			for(int j = 0; j < clusters.get(i).getMemberSize(); j++){
+				Point p = (Point) clusters.get(i).getPointsMember().get(j);
 				
-		System.out.println("The WCSS of this run is: " + kmeans.calculateWCSS());				
+				for(int k = 0; k < tempPoint.getCoordinate().size() - 1; k++){
+					xFloat[j][k] = (float) p.getCoordinate().get(k);
+				}
+			}
+			for(int j = 0; j < xFloat.length; j++){
+				xDouble[j] = floatToDouble(xFloat[j]);
+			}
+			
+			// Y_Train
+			double[][] yDouble = new double [clusters.get(i).getMemberSize()] [1];
+			
+			for(int j = 0; j < clusters.get(i).getMemberSize(); j++){
+				yDouble[j][0] = xDouble[j][xDouble[0].length-1];
+			}
+		
+			SimpleMatrix xTrain = new SimpleMatrix(xDouble);
+			SimpleMatrix yTrain = new SimpleMatrix(yDouble);
 
+			// xTrain beta = yTrain ->  beta = pinv(xTrain) yTrain
+			SimpleMatrix beta = (xTrain.pseudoInverse()).mult(yTrain);
+			//System.out.println(beta);
+			
+			// X_Test & Y_Test
+//			SimpleMatrix xTest = new SimpleMatrix(xtDouble);
+//			SimpleMatrix yTest = new SimpleMatrix(ytDouble);
+			
+			//sum += mean((xTest.dot(beta) - yTest));	
+		}
+		
+		// RMSE 
+		// np.sqrt(np.mean(((np.dot(X_test, beta) - Y_test) + ... )** 2))
+		double rmse = math.sqrt((1/K)* math.pow(sum,2));
+		System.out.println("RMSE: " + rmse);
+		
 	}
 	
 	private static double[] floatToDouble(float[] source){
