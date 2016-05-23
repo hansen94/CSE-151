@@ -59,4 +59,16 @@ public class Centroid {
 	public boolean compareCentroid(Centroid c){
 		return this.coordinate.equals(c.getCoordinate()) ;
 	}
+	
+	public double[][] makeDoubleMatrix(){
+		double [][] array = new double[this.pointsMember.size()] [this.pointsMember.get(0).getCoordinate().size()];
+		
+		for(int i = 0; i < this.pointsMember.size(); i++ ){
+			for(int j = 0 ; j < this.pointsMember.get(0).getCoordinate().size(); j++){
+				array[i][j] = Double.parseDouble(this.pointsMember.get(i).getCoordinate().get(j).toString());
+			}
+		}
+		
+		return array;
+	}
 }

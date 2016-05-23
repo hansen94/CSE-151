@@ -10,7 +10,7 @@ public class PA4Main {
 		// TODO Auto-generated method stub
 		//get the data from the file 
 		
-		final int K = 4;
+		final int K = 16;
 		System.out.println("Reading raw data...");
 		List <List<Float>> data = CsvReader.read("src/mypackage/abalone.data.csv");
 		
@@ -113,13 +113,37 @@ public class PA4Main {
 		
 		System.out.println("Done executing K-means...");
 		
+		System.out.println("K used is: " + K);
+		
 		List<Centroid> clusters = kmeans.getClusters();  //get the resulting centroid
 		for(int i = 0; i < clusters.size(); i++){
+			System.out.println("Centoid ID: " + clusters.get(i).getID());
 			System.out.println(clusters.get(i).getCoordinate().toString());
 		}
-				
+		
+		
+		//calculate the mean and standard deviation of each cluster
+		for(int i = 0; i < clusters.size(); i++){
+			Centroid cluster = clusters.get(i);
+			double[] mean = UtilFunctions.getMean(cluster.makeDoubleMatrix());
+			
+			double[] SD = UtilFunctions.getSD(cluster.makeDoubleMatrix());
+			
+			System.out.println("Centroid ID: " + cluster.getID());
+			System.out.print("Mean: ");
+			for(int j = 0; j < mean.length; j++){
+				System.out.print(mean[j] + " ");
+			}
+			System.out.println("");
+			System.out.print("Standard Deviation: ");
+			for(int j = 0; j < SD.length; j++){
+				System.out.print(SD[j] + " ");
+			}
+			System.out.println("");
+		}
 		
 				
+		System.out.println("The WCSS of this run is: " + kmeans.calculateWCSS());				
 
 	}
 	

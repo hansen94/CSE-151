@@ -26,7 +26,7 @@ public class KMeans {
 		
 		for(int i = 0; i < k ; i++){
 			int index = random.nextInt(points.size() - 1 - 0 + 1); 
-			System.out.println("The initial index of centroid " + i + " is :" + index);
+//			System.out.println("The initial index of centroid " + i + " is :" + index);
 			c = new Centroid(i, points.get(index) );
 			this.clusters.add(c);			
 		}
@@ -157,6 +157,25 @@ public class KMeans {
 	
 	public List<Centroid> getClusters(){
 		return this.clusters;
+	}
+	
+	
+	public double calculateWCSS(){
+		//sum up distance between all the points with its own nearest centroid
+		double sum = 0;
+			//iterate through all points
+		for(int i = 0; i< this.points.size(); i++){
+			//for each, calculate its distance with its centroid
+			double dist = this.points.get(i).distance(this.clusters.get(this.points.get(i).getCentroid()));
+			
+			//then square it
+			dist = dist * dist;
+			
+			//sum it in a variable
+			sum += dist;
+		}
+		
+		return sum;
 	}
 	
 }
