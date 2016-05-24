@@ -3,9 +3,8 @@ package mypackage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.apache.commons.math3.linear.QRDecomposition;
 import org.ejml.simple.SimpleMatrix;
-import org.python.modules.math;
+//import org.python.modules.math;
 
 public class PA4Main {
 
@@ -157,7 +156,7 @@ public class PA4Main {
 		
 		// RMSE 
 		// np.sqrt(np.mean(((np.dot(X_test, beta) - Y_test) + ... )** 2))
-		double rmse = math.sqrt((1/K)* math.pow(sum,2));
+		double rmse = Math.sqrt((1/K)* Math.pow(sum,2));
 		System.out.println("RMSE: " + rmse);
 		
 	}
