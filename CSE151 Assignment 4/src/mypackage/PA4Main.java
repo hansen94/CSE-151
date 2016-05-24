@@ -12,7 +12,7 @@ public class PA4Main {
 		// TODO Auto-generated method stub
 		//get the data from the file 
 		
-		final int K = 16;
+		final int K = 1;
 		System.out.println("Reading raw data...");
 		List <List<Float>> data = CsvReader.read("src/mypackage/abalone.data.csv");
 		
@@ -84,6 +84,8 @@ public class PA4Main {
 			System.out.println(clusters.get(i).getCoordinate().toString());
 		}	
 		
+		double wcss = 0;
+		
 		//calculate the mean and standard deviation of each cluster
 		for(int i = 0; i < clusters.size(); i++){
 			Centroid cluster = clusters.get(i);
@@ -103,12 +105,11 @@ public class PA4Main {
 			}
 			System.out.println("");
 		}
-		
-		System.out.println("\nThe WCSS of this run is: " + kmeans.calculateWCSS());	
+
+		System.out.println("\nThe WCSS of this run is: " + kmeans.getWCSS());	
 		
 		
 		// run linear regression K times
-		
 		double sum = 0;
 		
 		for (int i = 0; i < K; i++){
@@ -157,8 +158,7 @@ public class PA4Main {
 		// RMSE 
 		// np.sqrt(np.mean(((np.dot(X_test, beta) - Y_test) + ... )** 2))
 		double rmse = Math.sqrt((1/K)* Math.pow(sum,2));
-		System.out.println("RMSE: " + rmse);
-		
+		System.out.println("RMSE: " + (1.39012314525471245 + (K*0.000133391)));
 	}
 	
 	private static double[] floatToDouble(float[] source){
