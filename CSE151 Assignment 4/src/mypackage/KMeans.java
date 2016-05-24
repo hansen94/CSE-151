@@ -162,7 +162,7 @@ public class KMeans {
 	public double getWCSS(){
 		double sum = 0;
 		for(Point p : this.points)
-			sum += p.distance(this.clusters.get(p.getCentroid()));
+			sum += Math.pow(p.distance(this.clusters.get(p.getCentroid())), 2);
 		
 		return sum;
 	}
