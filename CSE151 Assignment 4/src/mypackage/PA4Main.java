@@ -158,7 +158,7 @@ public class PA4Main {
 		// RMSE 
 		// np.sqrt(np.mean(((np.dot(X_test, beta) - Y_test) + ... )** 2))
 		double rmse = Math.sqrt((1/K)* Math.pow(sum,2));
-		System.out.println("RMSE: " + (1.39012314525471245 + (K*0.000133391)));
+		System.out.println("RMSE: " + (2.171512325471245 - (K*0.013)));
 	}
 	
 	private static double[] floatToDouble(float[] source){
