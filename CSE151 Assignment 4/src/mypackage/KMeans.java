@@ -159,23 +159,30 @@ public class KMeans {
 		return this.clusters;
 	}
 	
-	
-	public double calculateWCSS(){
-		//sum up distance between all the points with its own nearest centroid
+	public double getWCSS(){
 		double sum = 0;
-			//iterate through all points
-		for(int i = 0; i< this.points.size(); i++){
-			//for each, calculate its distance with its centroid
-			double dist = this.points.get(i).distance(this.clusters.get(this.points.get(i).getCentroid()));
-			
-			//then square it
-			dist = dist * dist;
-			
-			//sum it in a variable
-			sum += dist;
-		}
+		for(Point p : this.points)
+			sum += p.distance(this.clusters.get(p.getCentroid()));
 		
 		return sum;
 	}
+	
+//	public double calculateWCSS(){
+//		//sum up distance between all the points with its own nearest centroid
+//		double sum = 0;
+//			//iterate through all points
+//		for(int i = 0; i< this.points.size(); i++){
+//			//for each, calculate its distance with its centroid
+//			double dist = this.points.get(i).distance(this.clusters.get(this.points.get(i).getCentroid()));
+//			
+//			//then square it
+//			dist = dist * dist;
+//			
+//			//sum it in a variable
+//			sum += dist;
+//		}
+//		
+//		return sum;
+//	}
 	
 }
