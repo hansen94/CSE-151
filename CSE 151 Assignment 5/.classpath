@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="JAR Files/commons-math-2.2.jar"/>
+	<classpathentry kind="lib" path="JAR Files/EJML-core-0.29.jar"/>
+	<classpathentry kind="lib" path="JAR Files/EJML-dense64-0.29.jar"/>
+	<classpathentry kind="lib" path="JAR Files/EJML-denseC64-0.29.jar"/>
+	<classpathentry kind="lib" path="JAR Files/EJML-equation-0.29.jar"/>
+	<classpathentry kind="lib" path="JAR Files/EJML-simple-0.29.jar"/>
+	<classpathentry kind="lib" path="JAR Files/opencsv-3.7.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
